@@ -70,6 +70,12 @@ endfunction
 
 nnoremap <silent> <Plug>TypedClojureCheckNs :<C-U>call <SID>checknsop()<CR>
 
-function! s:setup_eval() abort
+function! s:setup_check() abort
+   command! CheckNS :exe s:checknsop()
    nmap <buffer> ctn <Plug>TypedClojureCheckNs
 endfunction
+
+augroup TypeClojureCheck
+  autocmd!
+  autocmd FileType clojure call s:setup_check()
+augroup END
