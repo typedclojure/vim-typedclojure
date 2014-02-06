@@ -1,10 +1,10 @@
-" typed-clojure.vim 
+" typedclojure.vim 
 " Maintainer: Ambrose Bonnaire-Sergeant <http://github.com/frenchy64>
 
-if exists("g:loaded_typed_clojure") || v:version < 700 || &cp
+if exists("g:loaded_typedclojure") || v:version < 700 || &cp
   finish
 endif
-let g:loaded_typed_clojure = 1
+let g:loaded_typedclojure = 1
 
 
 function! s:currentqfline() abort
@@ -21,7 +21,7 @@ function! s:get_display_qf_text_at(n) abort
   return txt
 endfunction
 
-function! typed_clojure#display_current_location_text() abort
+function! typedclojure#display_current_location_text() abort
   let txt = s:get_display_qf_text_at(s:currentqfline())
   pedit :
   wincmd P
@@ -64,18 +64,17 @@ function! s:checknsop() abort
   endif
 endfunction
 
-function! typed_clojure#type_check_ns() abort
+function! typedclojure#type_check_ns() abort
   call s:checknsop()
 endfunction
 
-nnoremap <silent> <Plug>TypedClojureCheckNs :<C-U>call <SID>checknsop()<CR>
-
 function! s:setup_check() abort
-   command! CheckNS :exe s:checknsop()
+   command! CheckNS exe s:checknsop()
+   nnoremap <silent> <Plug>TypedClojureCheckNs :<C-U>call <SID>checknsop()<CR>
    nmap <buffer> ctn <Plug>TypedClojureCheckNs
 endfunction
 
-augroup TypeClojureCheck
+augroup TypedClojureCheck
   autocmd!
   autocmd FileType clojure call s:setup_check()
 augroup END
