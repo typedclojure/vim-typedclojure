@@ -6,7 +6,6 @@ if exists("g:loaded_typedclojure") || v:version < 700 || &cp
 endif
 let g:loaded_typedclojure = 1
 
-
 function! s:currentqfline() abort
   lopen
   let l = line('.')
@@ -70,9 +69,12 @@ endfunction
 
 function! s:setup_check() abort
    command! CheckNS exe s:checknsop()
+   echo 'INSIDE SETUP CHECK'
    nnoremap <silent> <Plug>TypedClojureCheckNs :<C-U>call <SID>checknsop()<CR>
    nmap <buffer> ctn <Plug>TypedClojureCheckNs
 endfunction
+
+echo 'OUTSIDE SETUP CHECK'
 
 augroup TypedClojureCheck
   autocmd!
