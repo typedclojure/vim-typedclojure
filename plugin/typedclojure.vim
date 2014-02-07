@@ -74,9 +74,7 @@ function! s:setup_check() abort
    nmap <buffer> ctn <Plug>TypedClojureCheckNs
 endfunction
 
-echo 'OUTSIDE SETUP CHECK'
-
 augroup TypedClojureCheck
   autocmd!
-  autocmd FileType clojure call s:setup_check()
+  autocmd FileType clojure :call s:setup_check()
 augroup END
