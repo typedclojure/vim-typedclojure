@@ -21,12 +21,16 @@ function! s:get_display_qf_text_at(n) abort
 endfunction
 
 function! typedclojure#display_current_location_text() abort
-  let txt = s:get_display_qf_text_at(line('.'))
-  pedit! :
-  wincmd P
-  nnoremap <buffer> <silent> q    :<C-U>bdelete<CR>
-  call append(line('.'), split(txt, "\n"))
-  wincmd P
+  if ^&buftype ==# 'quickfix'
+    let txt = s:get_display_qf_text_at(line('.'))
+    pedit! :
+    wincmd P
+    if &previewwindow
+      nnoremap <buffer> <silent> q    :<C-U>bdelete<CR>
+      call append(line('.'), split(txt, "\n"))
+      wincmd p " back to quickfix
+    endif
+  endif
 endfunction
 
 function! s:tc_qfmassage(errormap) abort
