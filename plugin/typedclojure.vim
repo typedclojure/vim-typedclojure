@@ -27,7 +27,7 @@ function! typedclojure#display_current_location_text() abort
   normal gg
   normal dGG
   nnoremap <buffer> <silent> q    :<C-U>bdelete<CR>
-  call append(line('$'), split(txt, "\n"))
+  call append(line('.'), split(txt, "\n"))
   wincmd P
 endfunction
 
