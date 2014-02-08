@@ -6,13 +6,13 @@ if exists("g:loaded_typedclojure") || v:version < 700 || &cp
 endif
 let g:loaded_typedclojure = 1
 
-function! s:currentqfline() abort
-  lopen
-  let l = line('.')
-  "revert to previous position
-  wincmd P
-  return l
-endfunction
+"function! s:currentqfline() abort
+"  lopen
+"  let l = line('.')
+"  "revert to previous position
+"  wincmd P
+"  return l
+"endfunction
 
 function! s:get_display_qf_text_at(n) abort
   let q = getloclist(0)
@@ -21,9 +21,10 @@ function! s:get_display_qf_text_at(n) abort
 endfunction
 
 function! typedclojure#display_current_location_text() abort
-  let txt = s:get_display_qf_text_at(s:currentqfline())
+  let txt = s:get_display_qf_text_at(line('.'))
   pedit :
   wincmd P
+  nnoremap <buffer> <silent> q    :<C-U>bdelete<CR>
   call append(line('$'), split(txt, "\n"))
   wincmd P
 endfunction
@@ -45,7 +46,7 @@ function! s:checknsop() abort
   let cmd =
         \ '(let [{:keys [delayed-errors]} (clojure.core.typed/check-ns-info)]'.
         \ '  (if (seq delayed-errors)'.
-        \ '    [:errors'.
+        \ '    [:errors '.
         \ '     (for [^Exception e delayed-errors]'.
         \ '      (let [{:keys [env] :as data} (ex-data e)]'.
         \ '        {:message (.getMessage e) :line (:line env)'.
@@ -69,7 +70,6 @@ endfunction
 
 function! s:setup_check() abort
    command! CheckNS exe s:checknsop()
-   echo 'INSIDE SETUP CHECK'
    nnoremap <silent> <Plug>TypedClojureCheckNs :<C-U>call <SID>checknsop()<CR>
    nmap <buffer> ctn <Plug>TypedClojureCheckNs
 endfunction
