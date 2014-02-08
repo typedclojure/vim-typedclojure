@@ -22,10 +22,8 @@ endfunction
 
 function! typedclojure#display_current_location_text() abort
   let txt = s:get_display_qf_text_at(line('.'))
-  pedit :
+  pedit! :
   wincmd P
-  normal gg
-  normal dGG
   nnoremap <buffer> <silent> q    :<C-U>bdelete<CR>
   call append(line('.'), split(txt, "\n"))
   wincmd P
