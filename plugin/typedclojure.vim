@@ -61,6 +61,7 @@ function! s:checknsop() abort
     echo 'Found type errors (view with :lopen)'
     call setloclist(0, s:tc_quickfix_for(r))
     lopen
+    nmap <buffer> ce <Plug>TypedClojureShowQFError :<C-U> call typedclojure#display_current_location_text()<CR>
   endif
 endfunction
 
