@@ -16,14 +16,14 @@ cd ~/.vim/bundle
 git clone git://github.com/typedclojure/vim-typedclojure.git
 ```
 
-If you're using [Vundle.vim](https://github.com/gmarik/Vundle.vim), install typed-clojure.vim
+If you're using [Vundle.vim](https://github.com/gmarik/Vundle.vim), install typedclojure.vim
 by adding this line to your vimrc, and then run `Bundle`.
 
 ```
 Bundle 'typedclojure/vim-typedclojure'
 ```
 
-After generating the helptags, view the manual with `help typed-clojure`.
+After generating the helptags, view the manual with `:help typedclojure`.
 
 ## Features
 
