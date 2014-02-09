@@ -77,7 +77,7 @@ function! typedclojure#type_check_ns() abort
 endfunction
 
 function! s:setup_check() abort
-   command! CheckNS exe s:checknsop()
+   command! CheckNs exe s:checknsop()
    nnoremap <silent> <Plug>TypedClojureCheckNs :<C-U>call <SID>checknsop()<CR>
    nmap <buffer> ctn <Plug>TypedClojureCheckNs
 endfunction
