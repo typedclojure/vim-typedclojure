@@ -27,6 +27,8 @@ function! typedclojure#display_current_location_text() abort
     wincmd P
     if &previewwindow
       nnoremap <buffer> <silent> q    :<C-U>bdelete<CR>
+      normal gg
+      normal dGG
       call append(line('.'), split(txt, "\n"))
       wincmd p " back to quickfix
     endif
