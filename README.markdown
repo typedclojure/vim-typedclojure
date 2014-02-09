@@ -1,4 +1,4 @@
-# typed-clojure.vim
+# typedclojure.vim
 
 <a href='http://typedclojure.org'><img src='images/part-of-typed-clojure-project.png'></a>
 
