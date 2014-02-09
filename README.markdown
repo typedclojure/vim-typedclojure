@@ -6,21 +6,21 @@ The official Typed Clojure vim plugin.
 
 ## Installation
 
-Typed-Clojure.vim requires [fireplace.vim](https://github.com/tpope/vim-fireplace).
+typedclojure.vim requires [fireplace.vim](https://github.com/tpope/vim-fireplace).
 
-If you're using [pathogen.vim](https://github.com/tpope/vim-pathogen), install typed-clojure.vim
+If you're using [pathogen.vim](https://github.com/tpope/vim-pathogen), install typedclojure.vim
 with these commands:
 
 ```
 cd ~/.vim/bundle
-git clone git://github.com/typedclojure/vim-typed-clojure.git
+git clone git://github.com/typedclojure/vim-typedclojure.git
 ```
 
 If you're using [Vundle.vim](https://github.com/gmarik/Vundle.vim), install typed-clojure.vim
 by adding this line to your vimrc, and then run `Bundle`.
 
 ```
-Bundle 'typedclojure/vim-typed-clojure'
+Bundle 'typedclojure/vim-typedclojure'
 ```
 
 After generating the helptags, view the manual with `help typed-clojure`.
