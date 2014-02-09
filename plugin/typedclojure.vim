@@ -21,7 +21,7 @@ function! s:get_display_qf_text_at(n) abort
 endfunction
 
 function! typedclojure#display_current_location_text() abort
-  if ^&buftype ==# 'quickfix'
+  if &buftype ==# 'quickfix'
     let txt = s:get_display_qf_text_at(line('.'))
     pedit! :
     wincmd P
