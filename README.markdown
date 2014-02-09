@@ -2,7 +2,7 @@
 
 <a href='http://typedclojure.org'><img src='images/part-of-typed-clojure-project.png'></a>
 
-This is official Typed Clojure vim plugin.
+The official Typed Clojure vim plugin.
 
 ## Installation
 
