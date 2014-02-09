@@ -40,7 +40,7 @@ quickfix window for stack traces.
 Hovering over an entry in the quickfix window and inputting `ce` will open a preview window
 with a nicely formatted copy of the type error message on the current line.
 
-<img src='images/preview window.png'>
+<img src='images/preview-window.png'>
 
 ## License
 
