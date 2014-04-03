@@ -57,8 +57,8 @@ function! s:checknsop() abort
         \ '      (let [{:keys [env] :as data} (ex-data e)]'.
         \ '        {:message (.getMessage e) :line (:line env)'.
         \ '         :column (:column env) :form (if (contains? data :form) (str (:form data)) 0)'.
-        \ '         :source (or (:source env) (when-let [ns (-> env :ns :name str)]'.
-        \ '                                     (str (apply str (replace {\. \/ \- \_} ns)) ".clj")))'.
+        \ '         :source (or (:file env) (:source env) (when-let [ns (-> env :ns :name str)]'.
+        \ '                                                 (str (apply str (replace {\. \/ \- \_} ns)) ".clj")))'.
         \ '         :ns (-> env :ns :name str)}))]'.
         \ '    [:ok []]))'
   let [status, r] = fireplace#evalparse(cmd)
