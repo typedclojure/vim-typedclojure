@@ -14,6 +14,20 @@ let g:loaded_typedclojure = 1
 "  return l
 "endfunction
 
+let s:tc_ns = 'vim.typedclojure'
+let s:tc_mapping = 'vim.typedclojure/file-mapping'
+
+function! s:init_internal_env() abort
+  let cmd = 
+        \ "(do (clojure.core/create-ns '".s:tc_ns.')'.
+        \ "    (clojure.core/intern '"s:tc_ns. 
+        \ "                         (clojure.core/symbol (clojure.core/name '".s:tc_mapping.'))'. 
+        \ '                         (clojure.core/atom {} :validator clojure.core/map?)))'
+  let res = fireplace#evalparse(cmd)
+endfunction
+
+s:init_internal_env()
+
 function! s:get_display_qf_text_at(n) abort
   let q = getloclist(0)
   let txt = get(q, a:n - 1).text
@@ -50,15 +64,22 @@ endfunction
 
 function! s:checknsop() abort
   let cmd =
-        \ '(let [{:keys [delayed-errors]} (clojure.core.typed/check-ns-info)]'.
-        \ '  (if (seq delayed-errors)'.
+        \ '(clojure.core/let'.
+        \ '  [{:keys [delayed-errors file-mapping]} (clojure.core.typed/check-ns-info clojure.core/*ns* :file-mapping true)]'.
+        \ '  (clojure.core/when file-mapping'
+        \ '    (clojure.core/reset! '.s:tc_mapping.' file-mapping))'
+        \ '  (if (clojure.core/seq delayed-errors)'.
         \ '    [:errors '.
-        \ '     (for [^Exception e delayed-errors]'.
-        \ '      (let [{:keys [env] :as data} (ex-data e)]'.
-        \ '        {:message (.getMessage e) :line (:line env)'.
-        \ '         :column (:column env) :form (if (contains? data :form) (str (:form data)) 0)'.
-        \ '         :source (or (:file env) (:source env) (when-let [ns (-> env :ns :name str)]'.
-        \ '                                                 (str (apply str (replace {\. \/ \- \_} ns)) ".clj")))'.
+        \ '     (clojure.core/for [^java.lang.Exception e delayed-errors]'.
+        \ '      (clojure.core/let [{:keys [env] :as data} (clojure.core/ex-data e)]'.
+        \ '        {:message (.getMessage e)'.
+        \ '         :line (:line env)'.
+        \ '         :column (:column env)'.
+        \ '         :form (if (clojure.core/contains? data :form) (clojure.core/str (:form data)) 0)'.
+        \ '         :source (or (:file env) '.
+        \ '                     (:source env)'.
+        \ '                     (clojure.core/when-let [ns (-> env :ns :name str)]'.
+        \ '                       (clojure.core/str (clojure.core/apply clojure.core/str (clojure.core/replace {\. \/ \- \_} ns)) ".clj")))'.
         \ '         :ns (-> env :ns :name str)}))]'.
         \ '    [:ok []]))'
   let [status, r] = fireplace#evalparse(cmd)
@@ -74,6 +95,25 @@ function! s:checknsop() abort
   endif
 endfunction
 
+"from fireplace.vim
+function! s:str(string) abort
+  return '"' . escape(a:string, '"\') . '"'
+endfunction
+
+function s:type_loc() abort
+  let l = line('.')
+  let c = col('.')
+  let cmd = 
+        \ '(clojure.core/let [p '.s:str(tr(fireplace#ns(), '-.', '_/').'.clj').']'.
+        \ '  (@'.s:tc_mapping.' {:file p :line '.l.' :column '.c.'}))'
+  let res = fireplace#evalparse(cmd)
+  return res
+endfunction!
+
+function! typedclojure#cursor_type() abort
+  call s:type_loc()
+endfunction
+
 function! typedclojure#type_check_ns() abort
   call s:checknsop()
 endfunction
@@ -81,7 +121,9 @@ endfunction
 function! s:setup_check() abort
    command! CheckNs exe s:checknsop()
    nnoremap <silent> <Plug>TypedClojureCheckNs :<C-U>call <SID>checknsop()<CR>
+   nnoremap <silent> <Plug>TypedClojureCursorType :<C-U>call <SID>type_loc()<CR>
    nmap <buffer> ctn <Plug>TypedClojureCheckNs
+   nmap <buffer> T <Plug>TypedClojureCursorType
 endfunction
 
 augroup TypedClojureCheck
