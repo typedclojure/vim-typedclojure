@@ -112,7 +112,7 @@ function s:type_loc() abort
 endfunction!
 
 function! typedclojure#cursor_type() abort
-  call s:type_loc()
+  return s:type_loc()
 endfunction
 
 function! typedclojure#type_check_ns() abort
