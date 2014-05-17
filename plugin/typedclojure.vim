@@ -94,7 +94,7 @@ function! s:checknsop() abort
     nmap <buffer> ce <Plug>TypedClojureShowQFError 
   endif
   if has('balloon_eval')
-    set bexpr=s:balloon_type()
+    set bexpr=BalloonType()
     set ballooneval
   endif
 endfunction
@@ -117,7 +117,7 @@ function! s:cursor_type() abort
   return s:type_loc(line('.'), col('.'))
 endfunction
 
-function! s:balloon_type() abort
+function! BalloonType() abort
   return s:type_loc(v:beval_lnum, v:beval_col)
 endfunction
 
