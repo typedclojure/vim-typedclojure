@@ -66,8 +66,8 @@ function! s:checknsop() abort
   let cmd =
         \ '(clojure.core/let'.
         \ '  [{:keys [delayed-errors file-mapping]} (clojure.core.typed/check-ns-info clojure.core/*ns* :file-mapping true)]'.
-        \ '  (clojure.core/when file-mapping'
-        \ '    (clojure.core/reset! '.s:tc_mapping.' file-mapping))'
+        \ '  (clojure.core/when file-mapping'.
+        \ '    (clojure.core/reset! '.s:tc_mapping.' file-mapping))'.
         \ '  (if (clojure.core/seq delayed-errors)'.
         \ '    [:errors '.
         \ '     (clojure.core/for [^java.lang.Exception e delayed-errors]'.
