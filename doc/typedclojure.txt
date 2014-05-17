@@ -22,12 +22,23 @@ These commands are local to buffers editing Clojure files.
 
                         ce  show the type error message in a preview window
 
+                                                *typedclojure-:TypeAt*
+:TypeAt                 Return the inferred type at the current cursor
+                        position.
+
 MAPPINGS                                        *typedclojure-mappings*
 
 These maps are available in Clojure buffers alongside |fireplace|.
 
                                                 *typedclojure-ctn*
-ctn                     Type check the current namespace.
+ctn                     Type check the current namespace. If GUI is
+                        enabled, type information is given on mouseover
+                        via balloons (on the leftmost character of a form).
+
+                                                *typedclojure-cK*
+cK                      After checking a namespace, cK over the leftmost
+                        character of a form displays its inferred type, if
+                        any.
 
 ABOUT                                           *typedclojure-about*
 

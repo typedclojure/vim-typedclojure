@@ -135,7 +135,6 @@ function! s:setup_check() abort
    nnoremap <silent> <Plug>TypedClojureCheckNs :<C-U>call <SID>checknsop()<CR>
    nnoremap <silent> <Plug>TypedClojureCursorType :<C-U>echo <SID>cursor_type()<CR>
    nmap <buffer> ctn <Plug>TypedClojureCheckNs
-   nmap <buffer> ctl <Plug>TypedClojureCursorType
    nmap <buffer> cK <Plug>TypedClojureCursorType
 endfunction
 
