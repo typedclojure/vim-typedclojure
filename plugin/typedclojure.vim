@@ -26,8 +26,6 @@ function! s:init_internal_env() abort
   let res = fireplace#evalparse(cmd)
 endfunction
 
-call s:init_internal_env()
-
 function! s:get_display_qf_text_at(n) abort
   let q = getloclist(0)
   let txt = get(q, a:n - 1).text
@@ -63,6 +61,7 @@ function! s:tc_quickfix_for(errors) abort
 endfunction
 
 function! s:checknsop() abort
+  call s:init_internal_env()
   let cmd =
         \ '(clojure.core/let'.
         \ '  [{:keys [delayed-errors file-mapping]} (clojure.core.typed/check-ns-info clojure.core/*ns* :file-mapping true)]'.
@@ -101,6 +100,7 @@ function! s:str(string) abort
 endfunction
 
 function s:type_loc() abort
+  call s:init_internal_env()
   let l = line('.')
   let c = col('.')
   let cmd = 
