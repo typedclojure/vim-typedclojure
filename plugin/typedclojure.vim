@@ -20,7 +20,7 @@ let s:tc_mapping = 'vim.typedclojure/file-mapping'
 function! s:init_internal_env() abort
   let cmd = 
         \ "(do (clojure.core/create-ns '".s:tc_ns.')'.
-        \ "    (clojure.core/intern '"s:tc_ns. 
+        \ "    (clojure.core/intern '".s:tc_ns. 
         \ "                         (clojure.core/symbol (clojure.core/name '".s:tc_mapping.'))'. 
         \ '                         (clojure.core/atom {} :validator clojure.core/map?)))'
   let res = fireplace#evalparse(cmd)
