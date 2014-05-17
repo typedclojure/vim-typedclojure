@@ -40,6 +40,14 @@ quickfix window for stack traces.
 Hovering over an entry in the quickfix window and inputting `ce` will open a preview window
 with a nicely formatted copy of the type error message on the current line.
 
+### Local type information
+
+After type checking a file, use `:TypeAt` or `cK` to query the type at a
+position in the type checked file. In GUI mode, mouse hovering has the same effect,
+but with balloon popups.
+
+Aim your mouse/cursor at the leftmost character in a form.
+
 <img src='images/preview-window.png'>
 
 ## License
