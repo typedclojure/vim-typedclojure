@@ -122,7 +122,7 @@ endfunction
 function! s:setup_check() abort
    command! CheckNs exe s:checknsop()
    nnoremap <silent> <Plug>TypedClojureCheckNs :<C-U>call <SID>checknsop()<CR>
-   nnoremap <silent> <Plug>TypedClojureCursorType :<C-U>call <SID>type_loc()<CR>
+   nnoremap <silent> <Plug>TypedClojureCursorType :<C-U>echo <SID>type_loc()<CR>
    nmap <buffer> ctn <Plug>TypedClojureCheckNs
    nmap <buffer> ctl <Plug>TypedClojureCursorType
 endfunction
