@@ -37,6 +37,8 @@ To type check the current namespace, call `:CheckNs` or input `ctn`
 Any type errors are loaded into a quickfix list, which can be navigated like fireplace's
 quickfix window for stack traces.
 
+<img src='images/preview-window.png'>
+
 Hovering over an entry in the quickfix window and inputting `ce` will open a preview window
 with a nicely formatted copy of the type error message on the current line.
 
@@ -46,9 +48,9 @@ After type checking a file, use `:TypeAt` or `cK` to query the type at a
 position in the type checked file. In GUI mode, mouse hovering has the same effect,
 but with balloon popups.
 
-Aim your mouse/cursor at the leftmost character in a form.
+<img src='images/typed-clojure-mouseover.png'>
 
-<img src='images/preview-window.png'>
+Aim your mouse/cursor at the leftmost character in a form.
 
 ## License
 
