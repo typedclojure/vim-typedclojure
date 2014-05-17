@@ -26,7 +26,7 @@ function! s:init_internal_env() abort
   let res = fireplace#evalparse(cmd)
 endfunction
 
-s:init_internal_env()
+call s:init_internal_env()
 
 function! s:get_display_qf_text_at(n) abort
   let q = getloclist(0)
