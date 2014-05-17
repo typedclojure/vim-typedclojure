@@ -93,6 +93,10 @@ function! s:checknsop() abort
     nnoremap <silent> <Plug>TypedClojureShowQFError :<C-U>call typedclojure#display_current_location_text()<CR>
     nmap <buffer> ce <Plug>TypedClojureShowQFError 
   endif
+  if has('balloon_eval')
+    set bexpr=s:balloon_type()
+    set ballooneval
+  endif
 endfunction
 
 "from fireplace.vim
@@ -100,19 +104,25 @@ function! s:str(string) abort
   return '"' . escape(a:string, '"\') . '"'
 endfunction
 
-function s:type_loc() abort
+function! s:type_loc(l, c) abort
   call s:init_internal_env()
-  let l = line('.')
-  let c = col('.')
   let cmd = 
         \ '(clojure.core/let [p '.s:str(tr(fireplace#ns(), '-.', '_/').'.clj').']'.
-        \ '  (@'.s:tc_mapping.' {:file p :line '.l.' :column '.c.'}))'
+        \ '  (@'.s:tc_mapping.' {:file p :line '.a:l.' :column '.a:c.'}))'
   let res = fireplace#evalparse(cmd)
   return res
 endfunction!
 
+function! s:cursor_type() abort
+  return s:type_loc(line('.'), col('.'))
+endfunction
+
+function! s:balloon_type() abort
+  return s:type_loc(v:beval_lnum, v:beval_col)
+endfunction
+
 function! typedclojure#cursor_type() abort
-  return s:type_loc()
+  return s:cursor_type()
 endfunction
 
 function! typedclojure#type_check_ns() abort
@@ -121,9 +131,9 @@ endfunction
 
 function! s:setup_check() abort
    command! CheckNs exe s:checknsop()
-   command! TypeAt echo s:type_loc()
+   command! TypeAt echo s:cursor_type()
    nnoremap <silent> <Plug>TypedClojureCheckNs :<C-U>call <SID>checknsop()<CR>
-   nnoremap <silent> <Plug>TypedClojureCursorType :<C-U>echo <SID>type_loc()<CR>
+   nnoremap <silent> <Plug>TypedClojureCursorType :<C-U>echo <SID>cursor_type()<CR>
    nmap <buffer> ctn <Plug>TypedClojureCheckNs
    nmap <buffer> ctl <Plug>TypedClojureCursorType
    nmap <buffer> cK <Plug>TypedClojureCursorType
