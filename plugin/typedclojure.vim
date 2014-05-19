@@ -63,6 +63,7 @@ endfunction
 
 function! s:checknsop() abort
   call s:init_internal_env()
+  let _ = fireplace#evalparse("(clojure.core/require 'clojure.core.typed)")
   let cmd =
         \ '(clojure.core/let'.
         \ '  [{:keys [delayed-errors file-mapping]} (clojure.core.typed/check-ns-info clojure.core/*ns* :file-mapping true)]'.
